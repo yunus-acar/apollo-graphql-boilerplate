@@ -1,7 +1,7 @@
 
-# Project Title
+# Apollo TypeGraphql Boilerplate
 
-A brief description of what this project does and who it's for
+
 
 
 ## Installation
