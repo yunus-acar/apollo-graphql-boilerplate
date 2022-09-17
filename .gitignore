@@ -1,0 +1,8 @@
+node_modules
+generated
+.env
+.vscode
+.idea
+dist
+.DS_Store
+public/img/*

@@ -1,0 +1,65 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../src/generated/typegql-prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String     @id @default(cuid())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime?  @updatedAt
+  name           String?
+  surname        String?
+  email          String     @unique
+  profilePicture String?
+  /// @TypeGraphQL.omit(output: true)
+  password       String
+  userType       UserType   @default(USER)
+  gender         GenderType @default(MALE)
+  Blog           Blog[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  title       String
+  description String?
+  Blog        Blog[]
+}
+
+model Blog {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  title       String
+  content     String
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  isPublished Boolean   @default(false)
+}
+
+enum UserType {
+  ADMIN
+  MANAGER
+  SALESMAN
+  COMPANY
+  USER
+}
+
+enum GenderType {
+  MALE
+  FEMALE
+  OTHER
+}
