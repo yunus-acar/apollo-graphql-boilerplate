@@ -33,4 +33,4 @@ Install my-project with npm
 | JWT_USER_SECRET | JWTSECRET123!! |
 | PORT | 4000 |
 | REDIS_URL | redis://localhost:6379 |
-
+| REDIS_PASSWORD | redis123 |
